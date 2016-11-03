@@ -11,56 +11,61 @@ and open the template in the editor.
 
     </head>
     <body>
-        <canvas id="sandbox" width="512" height="512"></canvas>
+        <!--<canvas id="sandbox" width="512" height="512"></canvas>-->
+		<textarea id='corpus' rows=5 cols=50>edwardo
+arlen
+crysta
+jacquelynn
+tarsha
+denice
+cherry
+christeen
+desmond
+willow
+chas
+santos
+emanuel
+armandina
+ardith
+otha
+barbar
+leola
+tessie
+adaline
+ivana
+britany
+lyla
+suellen
+yajaira
+ferdinand
+mandi
+tawanna
+bess
+ola</textarea>
+		<input type='button' value='Generate' onclick='makeWord()'>
+		<input id='order' type='text' value='2'>
         <script type="text/javascript">
-			var c = document.getElementById("sandbox");
-			var ctx = c.getContext("2d");
-			ctx.fillStyle = "#000000";
-			var width = c.width;
-			var height = c.height;
+			//var c = document.getElementById("sandbox");
+			//var ctx = c.getContext("2d");
+			//ctx.fillStyle = "#000000";
+			//var width = c.width;
+			//var height = c.height;
+			function makeWord(){
+				var wordList = document.getElementById("corpus").value.split(/\n/);
+				var order = parseInt(document.getElementById("order").value)
+				var bundle = readWords(wordList,2);
+				var statesList = bundle[0]
+				var possibleStates = bundle[1]
+				//var results = "";
+				//var states=[[0,1,3,2,3,2,3,2,4],[0,1,2,3,2,1,4],[0,2,1,0,3,1,0,4]]
+				var chain = learnStates(statesList);
+				//document.body.innerHTML=""
 			
-			var wordList = ["edwardo",
-"arlen",  
-"crysta",  
-"jacquelynn",  
-"tarsha",  
-"denice",  
-"cherry",  
-"christeen",  
-"desmond",  
-"willow",  
-"chas",  
-"santos",  
-"emanuel",  
-"armandina",  
-"ardith",  
-"otha",  
-"barbar",  
-"leola",  
-"tessie",  
-"adaline",  
-"ivana",  
-"britany",  
-"lyla",  
-"suellen",  
-"yajaira",  
-"ferdinand",  
-"mandi",
-"tawanna",
-"bess",
-"ola"];
-			var bundle = readWords(wordList,3);
-			var statesList = bundle[0]
-			var possibleStates = bundle[1]
-			//var results = "";
-			//var states=[[0,1,3,2,3,2,3,2,4],[0,1,2,3,2,1,4],[0,2,1,0,3,1,0,4]]
-			var chain = learnStates(statesList);
-			document.body.innerHTML=""
-			for(var i=0;i<20;i++){
 				var results = generateStates(chain,0)
 				results = convertStatesToWord(results,possibleStates)
-				document.body.innerHTML += results+"<br>"
+				document.getElementById('namelist').innerHTML += results+"<br>"
 			}
         </script>
+		<div id='namelist'></div>
     </body>
 </html>
